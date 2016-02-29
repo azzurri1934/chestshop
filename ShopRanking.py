@@ -146,8 +146,8 @@ def main():
     print u"===== 2015年4月～" + sys.argv[2] + u"年" + sys.argv[3] + u"月度チェストショップ収益 ====="
     print u"^  No.  ^  名前  ^  収益[円]  ^  売上  ^^  買取  ^^"
     print u"^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
-    cnt = 1
-    for user in user_list:
+
+    for cnt, user in enumerate(user_list):
         print u"|  " + str(cnt) + u"|" + \
             user.name + u"|  " + \
             str('{:,d}'.format(int(user.get_totalPrice()))) + u"|  " + \
@@ -155,29 +155,24 @@ def main():
             str('{:,d}'.format(int(user.get_totalUriageNum()))) + u"|  " + \
             str('{:,d}'.format(int(user.get_totalKaitoriPrice()))) + u"|  " + \
             str('{:,d}'.format(int(user.get_totalKaitoriNum()))) + u"|"
-        cnt += 1
 
-    for user in user_list:
-
+    for cnt, user in enumerate(user_list):
         print ""
         print "----"
         print ""
         print "====" + user.name + " ===="
         print ""
+        print u"^  No.  ^  商品  ^  収益[円]  ^  売上  ^^  買取  ^^"
+        print u"^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
 
-        cnt = 1
-        if len(user.item_list) >= 1:
-            print u"^  No.  ^  商品  ^  収益[円]  ^  売上  ^^  買取  ^^"
-            print u"^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
-            for bought_item in user.item_list:
-                print u"|  " + str(cnt) + u"|" + \
-                    bought_item.name + u"|  " + \
-                    str('{:,d}'.format(int(bought_item.bought_price - bought_item.sold_price))) + u"|  " + \
-                    str('{:,d}'.format(int(bought_item.bought_price))) + u"|  " + \
-                    str('{:,d}'.format(int(bought_item.bought_num))) + u"|  " + \
-                    str('{:,d}'.format(int(bought_item.sold_price))) + u"|  " + \
-                    str('{:,d}'.format(int(bought_item.sold_num))) + u"|"
-                cnt += 1
+        for item in user.item_list:
+            print u"|  " + str(cnt) + u"|" + \
+                item.name + u"|  " + \
+                str('{:,d}'.format(int(item.bought_price - item.sold_price))) + u"|  " + \
+                str('{:,d}'.format(int(item.bought_price))) + u"|  " + \
+                str('{:,d}'.format(int(item.bought_num))) + u"|  " + \
+                str('{:,d}'.format(int(item.sold_price))) + u"|  " + \
+                str('{:,d}'.format(int(item.sold_num))) + u"|"
         print ""
 
 if __name__ == '__main__':
