@@ -148,7 +148,7 @@ def main():
     print u"^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
 
     for cnt, user in enumerate(user_list):
-        print u"|  " + str(cnt) + u"|" + \
+        print u"|  " + str(cnt + 1) + u"|" + \
             user.name + u"|  " + \
             str('{:,d}'.format(int(user.get_totalPrice()))) + u"|  " + \
             str('{:,d}'.format(int(user.get_totalUriagePrice()))) + u"|  " + \
@@ -156,7 +156,7 @@ def main():
             str('{:,d}'.format(int(user.get_totalKaitoriPrice()))) + u"|  " + \
             str('{:,d}'.format(int(user.get_totalKaitoriNum()))) + u"|"
 
-    for cnt, user in enumerate(user_list):
+    for user in user_list:
         print ""
         print "----"
         print ""
@@ -165,8 +165,8 @@ def main():
         print u"^  No.  ^  商品  ^  収益[円]  ^  売上  ^^  買取  ^^"
         print u"^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
 
-        for item in user.item_list:
-            print u"|  " + str(cnt) + u"|" + \
+        for cnt, item in enumerate(user.item_list):
+            print u"|  " + str(cnt + 1) + u"|" + \
                 item.name + u"|  " + \
                 str('{:,d}'.format(int(item.bought_price - item.sold_price))) + u"|  " + \
                 str('{:,d}'.format(int(item.bought_price))) + u"|  " + \
