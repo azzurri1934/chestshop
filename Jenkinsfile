@@ -14,7 +14,7 @@ pipeline {
         stage('build'){
             steps {
                 sh 'chmod 744 ./ShopRanking.py'
-                sh 'python3 ./ShopRanking.py $last_time $this_time $year $month'
+                sh 'python ./ShopRanking.py $last_time $this_time $year $month'
             }
         }
     }
