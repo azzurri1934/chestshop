@@ -1,4 +1,9 @@
-import sys, os, math
+# coding: utf-8
+
+import sys
+import os
+import math
+
 
 class Item:
 
@@ -10,6 +15,7 @@ class Item:
         self.sold_num = 0
         self.rank = 0
         self.rank_str = ""
+
 
 class User:
 
@@ -56,6 +62,7 @@ class User:
     def get_totalPrice(self):
         return self.get_totalUriagePrice() - self.get_totalKaitoriPrice()
 
+
 class User_list:
 
     def __init__(self):
@@ -68,6 +75,7 @@ class User_list:
                 return
         self.user_list.append(user)
 
+
 def get_user_list(dir_path):
     user_list = User_list()
     for dirpath, dirs, files in os.walk(dir_path):
@@ -78,19 +86,41 @@ def get_user_list(dir_path):
                 if " bought " in line:
                     bought_item = Item()
                     string = line.split(" ")
-                    bought_item.bought_num = int(string[6])
-                    if string[8] == "for":
-                        bought_item.name = string[7]
-                        next_index = 9
-                    elif string[9] == "for":
-                        bought_item.name = string[7] + " " + string[8]
-                        next_index = 10
-                    elif string[10] == "for":
-                        bought_item.name = string[7] + " " + string[8] + " " + string[9]
-                        next_index = 11
-                    elif string[11] == "for":
-                        bought_item.name = string[7] + " " + string[8] + " " + string[9]+ " " + string[10]
-                        next_index = 12
+                    if string[5] == "bought":
+                        bought_item.bought_num = int(string[6])
+                        if string[8] == "for":
+                            bought_item.name = string[7]
+                            next_index = 9
+                        elif string[9] == "for":
+                            bought_item.name = string[7] + " " + string[8]
+                            next_index = 10
+                        elif string[10] == "for":
+                            bought_item.name = string[7] + \
+                                " " + string[8] + " " + string[9]
+                            next_index = 11
+                        elif string[11] == "for":
+                            bought_item.name = string[7] + " " + \
+                                string[8] + " " + string[9] + " " + string[10]
+                            next_index = 12
+                    elif string[8] == "bought":
+                        bought_item.bought_num = int(string[9])
+                        if string[11] == "for":
+                            bought_item.name = string[10]
+                            next_index = 12
+                        elif string[12] == "for":
+                            bought_item.name = string[10] + " " + string[11]
+                            next_index = 13
+                        elif string[13] == "for":
+                            bought_item.name = string[10] + \
+                                " " + string[11] + " " + string[12]
+                            next_index = 14
+                        elif string[14] == "for":
+                            bought_item.name = string[10] + " " + \
+                                string[11] + " " + \
+                                string[12] + " " + string[13]
+                            next_index = 15
+                    else:
+                        break
                     bought_item.bought_price = int(float(string[next_index]))
                     user = User()
                     user.name = string[next_index + 2]
@@ -100,19 +130,41 @@ def get_user_list(dir_path):
                 elif " sold " in line:
                     sold_item = Item()
                     string = line.split(" ")
-                    sold_item.sold_num = int(string[6])
-                    if string[8] == "for":
-                        sold_item.name = string[7]
-                        next_index = 9
-                    elif string[9] == "for":
-                        sold_item.name = string[7] + " " + string[8]
-                        next_index = 10
-                    elif string[10] == "for":
-                        sold_item.name = string[7] + " " + string[8] + " " + string[9]
-                        next_index = 11
-                    elif string[11] == "for":
-                        sold_item.name = string[7] + " " + string[8] + " " + string[9]+ " " + string[10]
-                        next_index = 12
+                    if string[5] == "sold":
+                        sold_item.sold_num = int(string[6])
+                        if string[8] == "for":
+                            sold_item.name = string[7]
+                            next_index = 9
+                        elif string[9] == "for":
+                            sold_item.name = string[7] + " " + string[8]
+                            next_index = 10
+                        elif string[10] == "for":
+                            sold_item.name = string[7] + \
+                                " " + string[8] + " " + string[9]
+                            next_index = 11
+                        elif string[11] == "for":
+                            sold_item.name = string[7] + " " + \
+                                string[8] + " " + string[9] + " " + string[10]
+                            next_index = 12
+                    elif string[8] == "sold":
+                        sold_item.sold_num = int(string[9])
+                        if string[11] == "for":
+                            sold_item.name = string[10]
+                            next_index = 12
+                        elif string[12] == "for":
+                            sold_item.name = string[10] + " " + string[11]
+                            next_index = 13
+                        elif string[13] == "for":
+                            sold_item.name = string[10] + \
+                                " " + string[11] + " " + string[12]
+                            next_index = 14
+                        elif string[14] == "for":
+                            sold_item.name = string[10] + " " + \
+                                string[11] + " " + \
+                                string[12] + " " + string[13]
+                            next_index = 15
+                    else:
+                        break
                     sold_item.sold_price = int(float(string[next_index]))
                     user = User()
                     user.name = string[next_index + 2]
@@ -121,12 +173,16 @@ def get_user_list(dir_path):
                     user_list.add_user(user)
             f.close()
 
-    user_list = sorted(user_list.user_list, cmp=lambda x,y: cmp(x.name.lower(), y.name.lower()))
-    user_list = sorted(user_list, key=lambda User: User.get_totalPrice(), reverse=True)
+    user_list = sorted(user_list.user_list, cmp=lambda x,
+                       y: cmp(x.name.lower(), y.name.lower()))
+    user_list = sorted(
+        user_list, key=lambda User: User.get_totalPrice(), reverse=True)
 
     for user in user_list:
-        user.item_list = sorted(user.item_list, cmp=lambda x,y: cmp(x.name.lower(), y.name.lower()))
-        user.item_list = sorted(user.item_list, key=lambda Item: Item.bought_price-Item.sold_price, reverse=True)
+        user.item_list = sorted(user.item_list, cmp=lambda x, y: cmp(
+            x.name.lower(), y.name.lower()))
+        user.item_list = sorted(
+            user.item_list, key=lambda Item: Item.bought_price-Item.sold_price, reverse=True)
 
     for cnt in range(len(user_list)):
         if cnt == 0:
@@ -146,29 +202,31 @@ def get_user_list(dir_path):
             if cnt_item == 0:
                 user_list[cnt].item_list[cnt_item].rank = 1
                 user_list[cnt].item_list[cnt_item].rank_str = "1"
-                now_rank = 1
+                now_item_rank = 1
             else:
                 if user_list[cnt].item_list[cnt_item-1].bought_price - user_list[cnt].item_list[cnt_item-1].sold_price == user_list[cnt].item_list[cnt_item].bought_price - user_list[cnt].item_list[cnt_item].sold_price:
-                    user_list[cnt].item_list[cnt_item].rank = now_rank
+                    user_list[cnt].item_list[cnt_item].rank = now_item_rank
                     user_list[cnt].item_list[cnt_item].rank_str = u":::"
                 else:
                     user_list[cnt].item_list[cnt_item].rank = cnt_item + 1
-                    user_list[cnt].item_list[cnt_item].rank_str = str(cnt_item+1)
-                    now_rank = cnt_item + 1
+                    user_list[cnt].item_list[cnt_item].rank_str = str(
+                        cnt_item+1)
+                    now_item_rank = cnt_item + 1
 
     return user_list
+
 
 def main():
 
     user_list_last_month = get_user_list(sys.argv[1])
     user_list_this_month = get_user_list(sys.argv[2])
 
-    print("===== " + sys.argv[3] + "年" + sys.argv[4] + "月度チェストショップ収益 =====")
+    print u"===== " + sys.argv[3] + u"年" + sys.argv[4] + u"月度チェストショップ収益 ====="
     print u"  * <color red>↑</color><color blue>↓</color>は前回からの増減値です。\n"
     print u"^  順位  ^^  名前  ^  収益[円]  ^^^  売上  ^^  買取  ^^"
     print u"^:::^:::^:::^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
 
-    for y in user_list_this_month :
+    for y in user_list_this_month:
 
         flag_match = False
 
@@ -185,18 +243,23 @@ def main():
             delta_totalPraice = y.get_totalPrice()
 
         if delta_rank > 0:
-            delta_rank_str = u"<color red><fs 90%>↑(" + str(delta_rank) + u")</fs></color>"
+            delta_rank_str = u"<color red><fs 90%>↑(" + \
+                str(delta_rank) + u")</fs></color>"
         elif delta_rank == 0:
             delta_rank_str = u" "
         else:
-            delta_rank_str = u"<color blue><fs 90%>↓(" + str(int(math.fabs(delta_rank))) + u")</fs></color>"
+            delta_rank_str = u"<color blue><fs 90%>↓(" + str(
+                int(math.fabs(delta_rank))) + u")</fs></color>"
 
         if delta_totalPraice > 0:
-            delta_totalPraice_str = u"<color red><fs 90%>↑</fs></color>|  <color red><fs 90%>" + str('{:,d}'.format(delta_totalPraice)) + u"</fs></color>"
+            delta_totalPraice_str = u"<color red><fs 90%>↑</fs></color>|  <color red><fs 90%>" + \
+                str('{:,d}'.format(delta_totalPraice)) + u"</fs></color>"
         elif delta_totalPraice == 0:
-            delta_totalPraice_str = u" "
+            delta_totalPraice_str = u"| "
         else:
-            delta_totalPraice_str = u"<color blue><fs 90%>↓</fs></color>|  <color blue><fs 90%>" + str('{:,d}'.format(int(math.fabs(delta_totalPraice)))) + u"</fs></color>"
+            delta_totalPraice_str = u"<color blue><fs 90%>↓</fs></color>|  <color blue><fs 90%>" + \
+                str('{:,d}'.format(int(math.fabs(delta_totalPraice)))) + \
+                u"</fs></color>"
 
         print u"|  " + y.rank_str + u"|" + \
             delta_rank_str + u"|" + \
@@ -225,42 +288,13 @@ def main():
                 str('{:,d}'.format(int(item.bought_num))) + u"|  " + \
                 str('{:,d}'.format(int(item.sold_price))) + u"|  " + \
                 str('{:,d}'.format(int(item.sold_num))) + u"|"
-        print ""
-
-    user_list_total = get_user_list("S:\\minecraft\\savasava\\logs\\2015-00")
-
-    print u"===== 2015年4月～" + sys.argv[3] + u"年" + sys.argv[4] + u"月度チェストショップ収益 ====="
-    print u"  * <color red>↑</color><color blue>↓</color>は前回からの増減値です。\n"
-    print u"^  順位  ^  名前  ^  収益[円]  ^  売上  ^^  買取  ^^"
-    print u"^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
-
-    for user in user_list_total:
-        print u"|  " + user.rank_str + u"|" + \
-            user.name + u"|  " + \
+        print u"^  合計||  " + \
             str('{:,d}'.format(int(user.get_totalPrice()))) + u"|  " + \
             str('{:,d}'.format(int(user.get_totalUriagePrice()))) + u"|  " + \
             str('{:,d}'.format(int(user.get_totalUriageNum()))) + u"|  " + \
             str('{:,d}'.format(int(user.get_totalKaitoriPrice()))) + u"|  " + \
             str('{:,d}'.format(int(user.get_totalKaitoriNum()))) + u"|"
 
-    for user in user_list_total:
-        print ""
-        print "----"
-        print ""
-        print "====" + user.name + " ===="
-        print ""
-        print u"^  順位  ^  商品  ^  収益[円]  ^  売上  ^^  買取  ^^"
-        print u"^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
-
-        for item in user.item_list:
-            print u"|  " + item.rank_str + u"|" + \
-                item.name + u"|  " + \
-                str('{:,d}'.format(int(item.bought_price - item.sold_price))) + u"|  " + \
-                str('{:,d}'.format(int(item.bought_price))) + u"|  " + \
-                str('{:,d}'.format(int(item.bought_num))) + u"|  " + \
-                str('{:,d}'.format(int(item.sold_price))) + u"|  " + \
-                str('{:,d}'.format(int(item.sold_num))) + u"|"
-        print ""
 
 if __name__ == '__main__':
     main()
