@@ -221,10 +221,10 @@ def main():
     user_list_last_month = get_user_list(sys.argv[1])
     user_list_this_month = get_user_list(sys.argv[2])
 
-    print u"===== " + sys.argv[3] + u"年" + sys.argv[4] + u"月度チェストショップ収益 ====="
-    print u"  * <color red>↑</color><color blue>↓</color>は前回からの増減値です。\n"
-    print u"^  順位  ^^  名前  ^  収益[円]  ^^^  売上  ^^  買取  ^^"
-    print u"^:::^:::^:::^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
+    print "===== " + sys.argv[3] + u"年" + sys.argv[4] + u"月度チェストショップ収益 ====="
+    print "  * <color red>↑</color><color blue>↓</color>は前回からの増減値です。\n"
+    print "^  順位  ^^  名前  ^  収益[円]  ^^^  売上  ^^  買取  ^^"
+    print "^:::^:::^:::^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
 
     for y in user_list_this_month:
 
@@ -261,7 +261,7 @@ def main():
                 str('{:,d}'.format(int(math.fabs(delta_totalPraice)))) + \
                 u"</fs></color>"
 
-        print u"|  " + y.rank_str + u"|" + \
+        print "|  " + y.rank_str + u"|" + \
             delta_rank_str + u"|" + \
             y.name + u"|  " + \
             str('{:,d}'.format(int(y.get_totalPrice()))) + u"|  " + \
@@ -277,18 +277,18 @@ def main():
         print ""
         print "====" + user.name + " ===="
         print ""
-        print u"^  順位  ^  商品  ^  収益[円]  ^  売上  ^^  買取  ^^"
-        print u"^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
+        print "^  順位  ^  商品  ^  収益[円]  ^  売上  ^^  買取  ^^"
+        print "^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
 
         for item in user.item_list:
-            print u"|  " + item.rank_str + u"|" + \
+            print "|  " + item.rank_str + u"|" + \
                 item.name + u"|  " + \
                 str('{:,d}'.format(int(item.bought_price - item.sold_price))) + u"|  " + \
                 str('{:,d}'.format(int(item.bought_price))) + u"|  " + \
                 str('{:,d}'.format(int(item.bought_num))) + u"|  " + \
                 str('{:,d}'.format(int(item.sold_price))) + u"|  " + \
                 str('{:,d}'.format(int(item.sold_num))) + u"|"
-        print u"^  合計||  " + \
+        print "^  合計||  " + \
             str('{:,d}'.format(int(user.get_totalPrice()))) + u"|  " + \
             str('{:,d}'.format(int(user.get_totalUriagePrice()))) + u"|  " + \
             str('{:,d}'.format(int(user.get_totalUriageNum()))) + u"|  " + \
