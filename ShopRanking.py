@@ -221,7 +221,7 @@ def main():
     user_list_last_month = get_user_list(sys.argv[1])
     user_list_this_month = get_user_list(sys.argv[2])
 
-    print u"===== " + sys.argv[3] + "年" + sys.argv[4] + "月度チェストショップ収益 ====="
+    print "===== " + sys.argv[3] + "年" + sys.argv[4] + "月度チェストショップ収益 ====="
     print "  * <color red>↑</color><color blue>↓</color>は前回からの増減値です。\n"
     print "^  順位  ^^  名前  ^  収益[円]  ^^^  売上  ^^  買取  ^^"
     print "^:::^:::^:::^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
