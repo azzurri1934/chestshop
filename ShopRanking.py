@@ -182,7 +182,7 @@ def get_user_list(dir_path):
         user.item_list = sorted(user.item_list, cmp=lambda x, y: cmp(
             x.name.lower(), y.name.lower()))
         user.item_list = sorted(
-            user.item_list, key=lambda Item: Item.bought_price-Item.sold_price, reverse=True)
+            user.item_list, key=lambda Item: Item.bought_price - Item.sold_price, reverse=True)
 
     for cnt in range(len(user_list)):
         if cnt == 0:
@@ -190,12 +190,12 @@ def get_user_list(dir_path):
             user_list[cnt].rank_str = "1"
             now_rank = 1
         else:
-            if user_list[cnt-1].get_totalPrice() == user_list[cnt].get_totalPrice():
+            if user_list[cnt - 1].get_totalPrice() == user_list[cnt].get_totalPrice():
                 user_list[cnt].rank = now_rank
                 user_list[cnt].rank_str = u":::"
             else:
                 user_list[cnt].rank = cnt + 1
-                user_list[cnt].rank_str = str(cnt+1)
+                user_list[cnt].rank_str = str(cnt + 1)
                 now_rank = cnt + 1
 
         for cnt_item in range(len(user_list[cnt].item_list)):
@@ -204,13 +204,13 @@ def get_user_list(dir_path):
                 user_list[cnt].item_list[cnt_item].rank_str = "1"
                 now_item_rank = 1
             else:
-                if user_list[cnt].item_list[cnt_item-1].bought_price - user_list[cnt].item_list[cnt_item-1].sold_price == user_list[cnt].item_list[cnt_item].bought_price - user_list[cnt].item_list[cnt_item].sold_price:
+                if user_list[cnt].item_list[cnt_item - 1].bought_price - user_list[cnt].item_list[cnt_item - 1].sold_price == user_list[cnt].item_list[cnt_item].bought_price - user_list[cnt].item_list[cnt_item].sold_price:
                     user_list[cnt].item_list[cnt_item].rank = now_item_rank
                     user_list[cnt].item_list[cnt_item].rank_str = u":::"
                 else:
                     user_list[cnt].item_list[cnt_item].rank = cnt_item + 1
                     user_list[cnt].item_list[cnt_item].rank_str = str(
-                        cnt_item+1)
+                        cnt_item + 1)
                     now_item_rank = cnt_item + 1
 
     return user_list
@@ -221,7 +221,7 @@ def main():
     user_list_last_month = get_user_list(sys.argv[1])
     user_list_this_month = get_user_list(sys.argv[2])
 
-    print "===== " + sys.argv[3] + "年" + sys.argv[4] + "月度チェストショップ収益 ====="
+    print u"===== " + sys.argv[3] + "年" + sys.argv[4] + "月度チェストショップ収益 ====="
     print "  * <color red>↑</color><color blue>↓</color>は前回からの増減値です。\n"
     print "^  順位  ^^  名前  ^  収益[円]  ^^^  売上  ^^  買取  ^^"
     print "^:::^:::^:::^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
@@ -261,7 +261,7 @@ def main():
                 str('{:,d}'.format(int(math.fabs(delta_totalPraice)))) + \
                 u"</fs></color>"
 
-        print "|  " + y.rank_str + u"|" + \
+        print u"|  " + y.rank_str + u"|" + \
             delta_rank_str + u"|" + \
             y.name + u"|  " + \
             str('{:,d}'.format(int(y.get_totalPrice()))) + u"|  " + \
@@ -281,7 +281,7 @@ def main():
         print "^:::^:::^:::^  合計額 [円]  ^  個数 [個]  ^  合計額[円]  ^  個数[個]  ^"
 
         for item in user.item_list:
-            print "|  " + item.rank_str + u"|" + \
+            print u"|  " + item.rank_str + u"|" + \
                 item.name + u"|  " + \
                 str('{:,d}'.format(int(item.bought_price - item.sold_price))) + u"|  " + \
                 str('{:,d}'.format(int(item.bought_price))) + u"|  " + \
